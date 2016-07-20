@@ -77,6 +77,8 @@ class LocationTests: XCTestCase {
         let marginOfError = 0.1
         return (abs(loc.long - (-74.66)) < marginOfError) && (abs(loc.lat - 40.35) < marginOfError)
     }
+    
+    func 
 
 
 }

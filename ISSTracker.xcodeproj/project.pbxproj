@@ -60,6 +60,31 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7D8C4C271D403E0A00F9CD7B /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				7D325A951D4021FE006795EF /* LocationEntryViewController.swift */,
+				7D8CD78E1D3FDFE8008E1E6D /* ViewController.swift */,
+			);
+			name = "View Controllers";
+			sourceTree = "<group>";
+		};
+		7D8C4C281D403E1900F9CD7B /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		7D8C4C291D403E2700F9CD7B /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				7D8CD78C1D3FDFE8008E1E6D /* AppDelegate.swift */,
+				7D8CD7AC1D3FE2DC008E1E6D /* LocationRetriever.swift */,
+			);
+			name = Utility;
+			sourceTree = "<group>";
+		};
 		7D8CD7801D3FDFE8008E1E6D = {
 			isa = PBXGroup;
 			children = (
@@ -81,14 +106,13 @@
 		7D8CD78B1D3FDFE8008E1E6D /* ISSTracker */ = {
 			isa = PBXGroup;
 			children = (
-				7D8CD78C1D3FDFE8008E1E6D /* AppDelegate.swift */,
-				7D8CD78E1D3FDFE8008E1E6D /* ViewController.swift */,
+				7D8C4C291D403E2700F9CD7B /* Utility */,
+				7D8C4C281D403E1900F9CD7B /* Models */,
+				7D8C4C271D403E0A00F9CD7B /* View Controllers */,
 				7D8CD7901D3FDFE8008E1E6D /* Main.storyboard */,
-				7D8CD7931D3FDFE8008E1E6D /* Assets.xcassets */,
 				7D8CD7951D3FDFE8008E1E6D /* LaunchScreen.storyboard */,
+				7D8CD7931D3FDFE8008E1E6D /* Assets.xcassets */,
 				7D8CD7981D3FDFE8008E1E6D /* Info.plist */,
-				7D8CD7AC1D3FE2DC008E1E6D /* LocationRetriever.swift */,
-				7D325A951D4021FE006795EF /* LocationEntryViewController.swift */,
 			);
 			path = ISSTracker;
 			sourceTree = "<group>";
