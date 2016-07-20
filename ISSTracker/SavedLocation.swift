@@ -1,0 +1,37 @@
+//
+//  SavedLocation.swift
+//  ISSTracker
+//
+//  Created by David Zheng on 7/20/16.
+//  Copyright © 2016 David Zheng. All rights reserved.
+//
+
+import Foundation
+
+class SavedLocation: NSObject, NSCoding {
+    var name: String
+    var latitude: Double
+    var longitude: Double
+    
+    init(name: String, latitude: Double, longitude: Double){
+        self.name = name
+        self.latitude = latitude
+        self.longitude = longitude
+    }
+    
+    required convenience init?(coder aDecoder: NSCoder) {
+        guard let name = aDecoder.decodeObjectForKey("name") as? String,
+            let latitude = aDecoder.decodeObjectForKey("latitude") as? Double,
+            let longitude = aDecoder.decodeObjectForKey("latitude") as? Double else {
+                return nil
+        }
+        self.init(name: name, latitude: latitude, longitude: longitude)
+    }
+    
+    func encodeWithCoder(aCoder: NSCoder) {
+        aCoder.encodeObject(self.name, forKey: "name")
+        aCoder.encodeDouble(self.latitude, forKey: "latitude")
+        aCoder.encodeDouble(self.longitude, forKey: "longitude")
+    }
+    
+}
