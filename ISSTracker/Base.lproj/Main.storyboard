@@ -35,7 +35,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jWH-Kk-m3p" userLabel="Header">
-                                <rect key="frame" x="0.0" y="64" width="600" height="150"/>
+                                <rect key="frame" x="0.0" y="64" width="600" height="100"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Currently At: ..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xE3-Ze-Pna">
                                         <rect key="frame" x="202" y="64" width="197" height="21"/>
@@ -54,13 +54,13 @@
                                 <constraints>
                                     <constraint firstItem="GTc-L0-xHi" firstAttribute="top" secondItem="jWH-Kk-m3p" secondAttribute="top" constant="8" id="8mU-zy-HI3"/>
                                     <constraint firstItem="xE3-Ze-Pna" firstAttribute="top" secondItem="GTc-L0-xHi" secondAttribute="bottom" constant="11" id="9kO-oN-Ld8"/>
-                                    <constraint firstAttribute="height" constant="150" id="Fqm-dt-RvP"/>
+                                    <constraint firstAttribute="height" constant="100" id="Fqm-dt-RvP"/>
                                     <constraint firstItem="GTc-L0-xHi" firstAttribute="centerX" secondItem="jWH-Kk-m3p" secondAttribute="centerX" id="ahE-gX-3hL"/>
                                     <constraint firstItem="xE3-Ze-Pna" firstAttribute="centerX" secondItem="jWH-Kk-m3p" secondAttribute="centerX" id="sDP-RX-wDt"/>
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="100" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="sbb-Zd-1FI">
-                                <rect key="frame" x="0.0" y="214" width="600" height="386"/>
+                                <rect key="frame" x="0.0" y="164" width="600" height="436"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="locationsCell" rowHeight="100" id="PVc-uV-Lu3" customClass="LocationsTableViewCell" customModule="ISSTracker" customModuleProvider="target">
