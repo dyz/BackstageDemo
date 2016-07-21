@@ -19,6 +19,7 @@ class SavedLocationStore: NSObject {
     func saveLocationsToDisk(locations: [SavedLocation], path: String) {
         NSKeyedArchiver.archiveRootObject(locations, toFile: path)
         cachedSavedLocations = locations
+        NSNotificationCenter.defaultCenter().postNotificationName("kSavedLocationsUpdated", object: self)
     }
     
     func saveLocationToDisk(loc: SavedLocation) {
@@ -46,13 +47,14 @@ class SavedLocationStore: NSObject {
     
     func defaultPath() -> String {
         let directory = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true).first
-        return directory?.stringByAppendingString("locations") ?? "defaultPath"
+        return directory?.stringByAppendingString("/locations.archive") ?? ""
     }
     
     func deleteSavedLocations() {
         do {
             try NSFileManager.defaultManager().removeItemAtPath(defaultPath())
             cachedSavedLocations = nil
+            NSNotificationCenter.defaultCenter().postNotificationName("kSavedLocationsUpdated", object: self)
         } catch let error as NSError {
             print("error deleting file: \(error)")
         }

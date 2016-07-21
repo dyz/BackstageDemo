@@ -34,7 +34,7 @@ class LocationStoreTests: XCTestCase {
     
     func getTestFilePath() -> String {
         let directory = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true).first
-        return directory?.stringByAppendingString(testPath) ?? "/testDefaultPath"
+        return directory?.stringByAppendingString(testPath) ?? ""
     }
     
     func testSavingLocations() {
