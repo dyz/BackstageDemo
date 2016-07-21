@@ -33,6 +33,7 @@ class LocationEntryViewController : UIViewController, UITextFieldDelegate {
         longTextField?.delegate = self
         
         saveButton.enabled = false
+        self.title = "New Location"
     }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
@@ -98,7 +99,7 @@ class LocationEntryViewController : UIViewController, UITextFieldDelegate {
         let saveAction = UIAlertAction.init(title: "Save", style: .Default) { (alertAction) in
             let name = alert.textFields?.first?.text ?? ""
             self.saveCurrentLocationWithName(name)
-            self.dismissViewControllerAnimated(true, completion: nil)
+            self.navigationController?.popViewControllerAnimated(true)
         }
         saveAction.enabled = false
         let cancelAction = UIAlertAction.init(title: "Cancel", style: .Cancel, handler: nil)
