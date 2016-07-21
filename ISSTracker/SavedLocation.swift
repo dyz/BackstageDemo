@@ -20,11 +20,12 @@ class SavedLocation: NSObject, NSCoding {
     }
     
     required convenience init?(coder aDecoder: NSCoder) {
-        guard let name = aDecoder.decodeObjectForKey("name") as? String,
-            let latitude = aDecoder.decodeObjectForKey("latitude") as? Double,
-            let longitude = aDecoder.decodeObjectForKey("latitude") as? Double else {
-                return nil
+        guard let name = aDecoder.decodeObjectForKey("name") as? String else {
+            return nil
         }
+        let latitude = aDecoder.decodeDoubleForKey("latitude")
+        let longitude = aDecoder.decodeDoubleForKey("longitude")
+        
         self.init(name: name, latitude: latitude, longitude: longitude)
     }
     
