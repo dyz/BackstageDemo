@@ -17,15 +17,11 @@ class LocationEntryViewController : UIViewController, UITextFieldDelegate {
     @IBOutlet weak var longTextField: UITextField!
     
     @IBOutlet weak var saveButton: UIButton!
+    @IBOutlet weak var clearButton: UIButton!
     
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     @IBOutlet weak var errorLabel: UILabel!
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-//        commonInit()
-    }
     
     override func viewDidLoad() {
         stringLocationTextField?.delegate = self
@@ -33,6 +29,7 @@ class LocationEntryViewController : UIViewController, UITextFieldDelegate {
         longTextField?.delegate = self
         
         saveButton.enabled = false
+        clearButton.enabled = (SavedLocationStore.sharedInstance.cachedSavedLocations?.count ?? 0) > 0
         self.title = "New Location"
     }
     
@@ -89,7 +86,7 @@ class LocationEntryViewController : UIViewController, UITextFieldDelegate {
     }
     
     func showSaveWithNameAlert() {
-        let alert = UIAlertController.init(title: "Save This Location", message: "Give a Name For This Location", preferredStyle: .Alert)
+        let alert = UIAlertController.init(title: "Save This Location", message: "Provide a Name For This Location", preferredStyle: .Alert)
         alert.addTextFieldWithConfigurationHandler { (textField) in
             textField.placeholder = "Name"
             textField.addTarget(self, action: #selector(LocationEntryViewController.alertTextFieldDidChange(_:)), forControlEvents: .EditingChanged)
@@ -117,6 +114,20 @@ class LocationEntryViewController : UIViewController, UITextFieldDelegate {
         }
     }
     
+    @IBAction func clearButtonPressed(sender: AnyObject) {
+        let alert = UIAlertController.init(title: "Clear Saved Locations?", message: "Are you sure you want to remove all saved locations?  This action cannot be undone.", preferredStyle: .Alert)
+        
+        let deleteAction = UIAlertAction.init(title: "Clear Locations", style: .Destructive) { (alertAction) in
+            SavedLocationStore.sharedInstance.deleteSavedLocations()
+            self.clearButton.enabled = false
+        }
+        let cancelAction = UIAlertAction.init(title: "Cancel", style: .Cancel, handler: nil)
+        alert.addAction(deleteAction)
+        alert.addAction(cancelAction)
+        
+        self.presentViewController(alert, animated: true, completion: nil)
+    }
+    
     func isShowingValidLocation() -> Bool {
         let latText = self.latTextField.text ?? ""
         let longText = self.longTextField.text ?? ""
@@ -133,9 +144,7 @@ class LocationEntryViewController : UIViewController, UITextFieldDelegate {
                 showErrorWithText("Invalid Coordinates")
             }
             return abs(lat) < 90 && abs(long) < 180
-            //do stuff
         } else {
-            //do stuff
             return false;
         }
     }

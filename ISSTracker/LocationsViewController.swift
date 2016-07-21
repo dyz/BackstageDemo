@@ -12,6 +12,7 @@ class LocationsViewController: UIViewController, UITableViewDataSource {
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var currentlyAtLabel: UILabel!
+    @IBOutlet weak var backgroundView: UIView!
     
     var dataSource = [LocationCellData]()
     let apiClient = APIClient.sharedClient
@@ -47,6 +48,7 @@ class LocationsViewController: UIViewController, UITableViewDataSource {
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        self.backgroundView.hidden = (dataSource.count > 0)
         return dataSource.count
     }
     
@@ -112,7 +114,7 @@ class LocationsViewController: UIViewController, UITableViewDataSource {
         let northSouthString = (lat > 0.0) ? "N" : "S"
         let eastWestString = (long > 0.0) ? "E" : "W"
         
-        currentlyAtLabel.text = String(format: "Current Location: %.2f°%@, %.2f°%@", abs(lat), northSouthString, abs(long), eastWestString)
+        currentlyAtLabel.text = String(format: "Current Position: %.2f°%@, %.2f°%@", abs(lat), northSouthString, abs(long), eastWestString)
     }
     
     func showOverheadAlertIfNecessary() {
