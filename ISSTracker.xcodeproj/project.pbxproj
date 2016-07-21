@@ -12,6 +12,9 @@
 		7D8C4C2B1D403EEB00F9CD7B /* SavedLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D8C4C2A1D403EEB00F9CD7B /* SavedLocation.swift */; };
 		7D8C4C2E1D40425100F9CD7B /* SavedLocationStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D8C4C2D1D40425100F9CD7B /* SavedLocationStore.swift */; };
 		7D8C4C301D40472700F9CD7B /* LocationStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D8C4C2F1D40472700F9CD7B /* LocationStoreTests.swift */; };
+		7D8C4C321D40740B00F9CD7B /* sampleNextPass.json in Resources */ = {isa = PBXBuildFile; fileRef = 7D8C4C311D40740B00F9CD7B /* sampleNextPass.json */; };
+		7D8C4C341D40745D00F9CD7B /* ISSAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D8C4C331D40745D00F9CD7B /* ISSAPIClient.swift */; };
+		7D8C4C361D40767200F9CD7B /* ISSAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D8C4C351D40767200F9CD7B /* ISSAPITests.swift */; };
 		7D8CD78D1D3FDFE8008E1E6D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D8CD78C1D3FDFE8008E1E6D /* AppDelegate.swift */; };
 		7D8CD78F1D3FDFE8008E1E6D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D8CD78E1D3FDFE8008E1E6D /* ViewController.swift */; };
 		7D8CD7921D3FDFE8008E1E6D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7D8CD7901D3FDFE8008E1E6D /* Main.storyboard */; };
@@ -36,6 +39,9 @@
 		7D8C4C2A1D403EEB00F9CD7B /* SavedLocation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SavedLocation.swift; sourceTree = "<group>"; };
 		7D8C4C2D1D40425100F9CD7B /* SavedLocationStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SavedLocationStore.swift; sourceTree = "<group>"; };
 		7D8C4C2F1D40472700F9CD7B /* LocationStoreTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationStoreTests.swift; sourceTree = "<group>"; };
+		7D8C4C311D40740B00F9CD7B /* sampleNextPass.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sampleNextPass.json; sourceTree = "<group>"; };
+		7D8C4C331D40745D00F9CD7B /* ISSAPIClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ISSAPIClient.swift; path = ISSTrackerTests/ISSAPIClient.swift; sourceTree = SOURCE_ROOT; };
+		7D8C4C351D40767200F9CD7B /* ISSAPITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ISSAPITests.swift; sourceTree = "<group>"; };
 		7D8CD7891D3FDFE8008E1E6D /* ISSTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ISSTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D8CD78C1D3FDFE8008E1E6D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7D8CD78E1D3FDFE8008E1E6D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -86,7 +92,7 @@
 		7D8C4C291D403E2700F9CD7B /* Utility */ = {
 			isa = PBXGroup;
 			children = (
-				7D8C4C2C1D40424500F9CD7B /* Data Store */,
+				7D8C4C331D40745D00F9CD7B /* ISSAPIClient.swift */,
 				7D8CD78C1D3FDFE8008E1E6D /* AppDelegate.swift */,
 				7D8CD7AC1D3FE2DC008E1E6D /* LocationRetriever.swift */,
 			);
@@ -122,6 +128,7 @@
 		7D8CD78B1D3FDFE8008E1E6D /* ISSTracker */ = {
 			isa = PBXGroup;
 			children = (
+				7D8C4C2C1D40424500F9CD7B /* Data Store */,
 				7D8C4C291D403E2700F9CD7B /* Utility */,
 				7D8C4C281D403E1900F9CD7B /* Models */,
 				7D8C4C271D403E0A00F9CD7B /* View Controllers */,
@@ -138,7 +145,9 @@
 			children = (
 				7D325A971D40390D006795EF /* LocationTests.swift */,
 				7D8C4C2F1D40472700F9CD7B /* LocationStoreTests.swift */,
+				7D8C4C351D40767200F9CD7B /* ISSAPITests.swift */,
 				7D8CD7A31D3FDFE8008E1E6D /* Info.plist */,
+				7D8C4C311D40740B00F9CD7B /* sampleNextPass.json */,
 			);
 			path = ISSTrackerTests;
 			sourceTree = "<group>";
@@ -234,6 +243,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7D8C4C321D40740B00F9CD7B /* sampleNextPass.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -257,8 +267,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7D8C4C361D40767200F9CD7B /* ISSAPITests.swift in Sources */,
 				7D8C4C301D40472700F9CD7B /* LocationStoreTests.swift in Sources */,
 				7D325A981D40390D006795EF /* LocationTests.swift in Sources */,
+				7D8C4C341D40745D00F9CD7B /* ISSAPIClient.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
