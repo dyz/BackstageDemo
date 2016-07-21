@@ -16,6 +16,8 @@ class LocationsViewController: UIViewController, UITableViewDataSource {
     var dataSource = [LocationCellData]()
     let apiClient = APIClient.sharedClient
     
+    var currentlyOverheadNames = [String]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "All Locations"
@@ -53,26 +55,38 @@ class LocationsViewController: UIViewController, UITableViewDataSource {
         
         var newDataSource = [LocationCellData]()
         
+        let locationsGroup = dispatch_group_create()
         for loc in savedLocations {
             let cellData = LocationCellData(name: loc.name, latitude: loc.latitude, longitude: loc.longitude, nextPass: nil)
             newDataSource.append(cellData)
             
+            dispatch_group_enter(locationsGroup)
             apiClient.getNextPassForLocationCoordinates(loc.latitude, long: loc.longitude, completion: { [weak self] (error, data) in
                 if (error == nil && data != nil) {
                     if let passes = data!["response"] as? [Dictionary<String, Int>] {
+                        if passes.count == 0 {
+                            //based on observation, it seems like this indicates the ISS is currently overhead
+                            cellData.currentlyOverhead = true
+                            cellData.nextPass = nil
+                            self?.currentlyOverheadNames.append(cellData.name)
+                        }
                         if let timestamp = passes.first?["risetime"] {
                             cellData.nextPass = NSDate(timeIntervalSince1970: Double(timestamp))
-                            dispatch_async(dispatch_get_main_queue(), {
-                                self?.tableView.reloadData()
-                            })
                         }
-                    }                }
+                        dispatch_async(dispatch_get_main_queue(), {
+                            self?.tableView.reloadData()
+                        })
+                    }
+                }
+                dispatch_group_leave(locationsGroup)
             })
-            
         }
-        
         self.dataSource = newDataSource
         self.tableView.reloadData()
+        
+        dispatch_group_notify(locationsGroup, dispatch_get_main_queue()) { 
+            self.showOverheadAlertIfNecessary()
+        }
     }
     
     func refreshCurrentLocation() {
@@ -99,6 +113,24 @@ class LocationsViewController: UIViewController, UITableViewDataSource {
         let eastWestString = (long > 0.0) ? "E" : "W"
         
         currentlyAtLabel.text = String(format: "Current Location: %.2f°%@, %.2f°%@", abs(lat), northSouthString, abs(long), eastWestString)
+    }
+    
+    func showOverheadAlertIfNecessary() {
+        if (self.currentlyOverheadNames.count > 0) {
+            var overheadStationsString = "\(self.currentlyOverheadNames.first!)"
+            if self.currentlyOverheadNames.count > 1 {
+                if self.currentlyOverheadNames.count == 2 {
+                    overheadStationsString.appendContentsOf("and \(self.currentlyOverheadNames.last!).")
+                } else {
+                    overheadStationsString.appendContentsOf("and \(self.currentlyOverheadNames.count - 1) other locations.")
+                }
+            }
+            let alert = UIAlertController(title: "ISS Overhead!", message: "The ISS is now overhead at \(overheadStationsString)", preferredStyle: .Alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
+            
+            self.presentViewController(alert, animated: true, completion: nil)
+            self.currentlyOverheadNames.removeAll()
+        }
     }
 
 

@@ -67,7 +67,7 @@
                                         <rect key="frame" x="0.0" y="28" width="600" height="100"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="PVc-uV-Lu3" id="QFK-5O-z9F">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="100"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="99.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l8q-z7-Dvk">
@@ -92,9 +92,15 @@
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Next Pass:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KJZ-HE-Vz9">
-                                                    <rect key="frame" x="370" y="54" width="69" height="17"/>
+                                                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Next Pass:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KJZ-HE-Vz9">
+                                                    <rect key="frame" x="370" y="54" width="69" height="27"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Currently Above!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Sh-i2-0OH">
+                                                    <rect key="frame" x="436" y="61" width="144" height="20"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -107,12 +113,14 @@
                                                 <constraint firstItem="R7j-UE-bld" firstAttribute="leading" secondItem="KJZ-HE-Vz9" secondAttribute="trailing" constant="10" id="GQj-tF-1Q6"/>
                                                 <constraint firstItem="KJZ-HE-Vz9" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="l8q-z7-Dvk" secondAttribute="trailing" id="Ikf-iY-Rud"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="R7j-UE-bld" secondAttribute="trailing" constant="16" id="LFH-WK-kB8"/>
+                                                <constraint firstAttribute="trailing" secondItem="3Sh-i2-0OH" secondAttribute="trailing" constant="20" id="NYc-BV-gbl"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="H47-04-VQx" secondAttribute="bottom" constant="5" id="THi-os-QOI"/>
                                                 <constraint firstItem="KJZ-HE-Vz9" firstAttribute="leading" secondItem="QFK-5O-z9F" secondAttribute="leadingMargin" constant="100" id="U43-JO-lhn"/>
                                                 <constraint firstItem="KJZ-HE-Vz9" firstAttribute="centerY" secondItem="l8q-z7-Dvk" secondAttribute="centerY" id="dEO-1s-Amp"/>
                                                 <constraint firstItem="H47-04-VQx" firstAttribute="leading" secondItem="l8q-z7-Dvk" secondAttribute="leading" id="eKg-h9-Vf9"/>
                                                 <constraint firstItem="R7j-UE-bld" firstAttribute="centerY" secondItem="H47-04-VQx" secondAttribute="centerY" id="fem-q4-Ghd"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="KJZ-HE-Vz9" secondAttribute="bottom" constant="10.5" id="h5m-26-wlF"/>
+                                                <constraint firstItem="3Sh-i2-0OH" firstAttribute="centerY" secondItem="R7j-UE-bld" secondAttribute="centerY" id="rr6-uj-wfX"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="KJZ-HE-Vz9" secondAttribute="trailing" constant="87" id="sew-Y0-6tK"/>
                                                 <constraint firstItem="l8q-z7-Dvk" firstAttribute="leading" secondItem="QFK-5O-z9F" secondAttribute="leadingMargin" constant="16" id="tHp-xP-C5M"/>
                                             </constraints>
@@ -129,6 +137,7 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="coordinatesLabel" destination="H47-04-VQx" id="hp6-Fh-cI6"/>
+                                            <outlet property="currentlyAboveLabel" destination="3Sh-i2-0OH" id="tOe-sZ-ctZ"/>
                                             <outlet property="dateLabel" destination="R7j-UE-bld" id="HlC-mS-8Ze"/>
                                             <outlet property="nameLabel" destination="l8q-z7-Dvk" id="zcD-fX-hxH"/>
                                             <outlet property="nextPassLabel" destination="KJZ-HE-Vz9" id="ZSU-gW-oCH"/>
