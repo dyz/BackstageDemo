@@ -12,7 +12,6 @@ import CoreLocation
 class LocationRetriever: NSObject {
     static let sharedInstance = LocationRetriever()
     let geocoder = CLGeocoder()
-    let locationManager = CLLocationManager()
     
     func getCoordinatesFromAddressString(address: String, completion: (lat: Double, long: Double)? -> Void) {
         geocoder.geocodeAddressString(address) { (placemark, error) in
@@ -35,11 +34,4 @@ class LocationRetriever: NSObject {
             }
         }
     }
-    
-//    func getCurrentLocation() {
-//        locationManager.requestAlwaysAuthorization()
-//        locationManager.requestWhenInUseAuthorization()
-//        
-//        if CLLocationManager
-//    }
 }

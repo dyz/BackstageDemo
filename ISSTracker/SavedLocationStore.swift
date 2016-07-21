@@ -11,6 +11,7 @@ import Foundation
 class SavedLocationStore: NSObject {
     static let sharedInstance = SavedLocationStore()
     var cachedSavedLocations : [SavedLocation]? = nil
+    var useCache = true
     
     func saveLocationsToDisk(locations: [SavedLocation]) {
         saveLocationsToDisk(locations, path: defaultPath())
@@ -27,7 +28,7 @@ class SavedLocationStore: NSObject {
     }
     
     func saveLocationToDisk(loc: SavedLocation, path: String) {
-        var savedLocations = cachedSavedLocations ?? getSavedLocationsFromDisk(path)
+        var savedLocations = (useCache) ? (cachedSavedLocations ?? getSavedLocationsFromDisk(path)) : getSavedLocationsFromDisk(path)
         savedLocations.append(loc)
         saveLocationsToDisk(savedLocations, path: path)
     }

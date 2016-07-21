@@ -12,16 +12,6 @@ import XCTest
 class LocationTests: XCTestCase {
     let locationRetriever = LocationRetriever.sharedInstance
     
-    override func setUp() {
-        super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
-    
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-        super.tearDown()
-    }
-    
     func testBadLocationRetrieval() {
         weak var expectation = expectationWithDescription("Testing a bad address")
         locationRetriever.getCoordinatesFromAddressString("This should fail") { (loc) in

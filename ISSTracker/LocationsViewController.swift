@@ -29,16 +29,10 @@ class LocationsViewController: UIViewController, UITableViewDataSource {
         refreshDataSource()
         refreshCurrentLocation()
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(LocationsViewController.locationsChanged(_:)), name: "kSavedLocationsUpdated", object: nil)
-        // Do any additional setup after loading the view, typically from a nib.
     }
     
     deinit {
         NSNotificationCenter.defaultCenter().removeObserver(self)
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {

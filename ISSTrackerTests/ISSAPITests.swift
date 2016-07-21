@@ -12,14 +12,14 @@ import XCTest
 class ISSAPITests: XCTestCase {
     
     func testURLConstruction() {
-        let apiClient = ISSAPIClient.sharedClient
+        let apiClient = APIClient.sharedClient
         let string1 = apiClient.constructURLStringForCoordinates(45.0, long: 35.0)
         let string2 = apiClient.constructURLStringForCoordinates(-53.23, long: -58.93)
         let string3 = apiClient.constructURLStringForCoordinates(83.338822, long: -49.4838282)
         
-        XCTAssertEqual(string1, "http://api.open-notify.org/iss-pass.json?lat=45.000&lon=35.000")
-        XCTAssertEqual(string2, "http://api.open-notify.org/iss-pass.json?lat=-53.230&lon=-58.930")
-        XCTAssertEqual(string3, "http://api.open-notify.org/iss-pass.json?lat=83.339&lon=-49.484")
+        XCTAssertEqual(string1, "http://api.open-notify.org/iss-pass.json?lat=45.000&lon=35.000&n=1")
+        XCTAssertEqual(string2, "http://api.open-notify.org/iss-pass.json?lat=-53.230&lon=-58.930&n=1")
+        XCTAssertEqual(string3, "http://api.open-notify.org/iss-pass.json?lat=83.339&lon=-49.484&n=1")
     }
     
 }
