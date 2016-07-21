@@ -36,6 +36,30 @@ class APIClient : NSObject {
         }
     }
     
+    func getCurrentLocation(completion: (error: NSError?, data: Dictionary<String, AnyObject>?) -> Void) {
+        if let url = NSURL.init(string: "http://api.open-notify.org/iss-now.json") {
+            let dataTask = session.dataTaskWithURL(url) { (data, response, error) in
+                if let response = response as? NSHTTPURLResponse {
+                    if (response.statusCode == 200) {
+                        do {
+                            if let jsonDict = try NSJSONSerialization.JSONObjectWithData(data!, options: .AllowFragments) as? Dictionary<String, AnyObject> {
+                                completion(error: nil, data: jsonDict)
+                            } else {
+                                completion(error: nil, data: nil)
+                            }
+                        } catch let jsonError as NSError {
+                            completion(error: jsonError, data: nil)
+                        }
+                    } else {
+                        completion(error: nil, data: nil)
+                    }
+                }
+            }
+            dataTask.resume()
+        }
+
+    }
+    
     func constructURLStringForCoordinates(lat: Double, long: Double) -> String {
         let latString = String(format: "%.3f", lat)
         let longString = String(format: "%.3f", long)

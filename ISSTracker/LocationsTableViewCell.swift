@@ -38,7 +38,7 @@ class LocationsTableViewCell: UITableViewCell {
             dateLabel.text = DateFormatter.sharedInstance.stringForDate(nextPassDate)
             nextPassLabel.hidden = false
         } else {
-            dateLabel.text = ""
+            dateLabel.text = "..."
             nextPassLabel.hidden = true
         }
     }

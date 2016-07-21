@@ -11,8 +11,10 @@ import UIKit
 class LocationsViewController: UIViewController, UITableViewDataSource {
 
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var currentlyAtLabel: UILabel!
     
     var dataSource = [LocationCellData]()
+    let apiClient = APIClient.sharedClient
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,6 +24,7 @@ class LocationsViewController: UIViewController, UITableViewDataSource {
         self.tableView.tableFooterView = UIView()
         
         refreshDataSource()
+        refreshCurrentLocation()
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(LocationsViewController.locationsChanged(_:)), name: "kSavedLocationsUpdated", object: nil)
         // Do any additional setup after loading the view, typically from a nib.
     }
@@ -54,14 +57,13 @@ class LocationsViewController: UIViewController, UITableViewDataSource {
             let cellData = LocationCellData(name: loc.name, latitude: loc.latitude, longitude: loc.longitude, nextPass: nil)
             newDataSource.append(cellData)
             
-            let apiClient = APIClient.sharedClient
-            apiClient.getNextPassForLocationCoordinates(loc.latitude, long: loc.longitude, completion: { (error, data) in
+            apiClient.getNextPassForLocationCoordinates(loc.latitude, long: loc.longitude, completion: { [weak self] (error, data) in
                 if (error == nil && data != nil) {
                     if let passes = data!["response"] as? [Dictionary<String, Int>] {
                         if let timestamp = passes.first?["risetime"] {
                             cellData.nextPass = NSDate(timeIntervalSince1970: Double(timestamp))
                             dispatch_async(dispatch_get_main_queue(), {
-                                self.tableView.reloadData()
+                                self?.tableView.reloadData()
                             })
                         }
                     }                }
@@ -73,8 +75,30 @@ class LocationsViewController: UIViewController, UITableViewDataSource {
         self.tableView.reloadData()
     }
     
+    func refreshCurrentLocation() {
+        apiClient.getCurrentLocation { [weak self] (error, data) in
+            if (error == nil && data != nil) {
+                if let location = data!["iss_position"] as? Dictionary<String, Double> {
+                    if let lat = location["latitude"], long = location["longitude"] {
+                        dispatch_async(dispatch_get_main_queue(), {
+                            self?.updateCurrentLocationLabelWithCoordinates(lat, long: long)
+                        })
+                    }
+                    
+                }
+            }
+        }
+    }
+    
     func locationsChanged(sender: NSNotification) {
         refreshDataSource()
+    }
+    
+    func updateCurrentLocationLabelWithCoordinates(lat: Double, long: Double) {
+        let northSouthString = (lat > 0.0) ? "N" : "S"
+        let eastWestString = (long > 0.0) ? "E" : "W"
+        
+        currentlyAtLabel.text = String(format: "Current Location: %.2f°%@, %.2f°%@", abs(lat), northSouthString, abs(long), eastWestString)
     }
 
 
