@@ -59,6 +59,27 @@ class LocationStoreTests: XCTestCase {
         
     }
     
+    func testAddLocations() {
+        let loc1 = SavedLocation(name: "David", latitude: 12.0, longitude: 13.0)
+        let path = getTestFilePath()
+        
+        SavedLocationStore.sharedInstance.saveLocationToDisk(loc1, path: path)
+        var storedLocs = savedLocationStore.getSavedLocationsFromDisk(path)
+        
+        XCTAssertNotNil(storedLocs)
+        XCTAssertEqual(storedLocs.count, 1)
+        
+        
+        let loc2 = SavedLocation(name: "Zavid", latitude: 11.0, longitude: 14.0)
+        SavedLocationStore.sharedInstance.saveLocationToDisk(loc2, path: path)
+        storedLocs = savedLocationStore.getSavedLocationsFromDisk(path)
+        
+        XCTAssertNotNil(storedLocs)
+        XCTAssertEqual(storedLocs.count, 2)
+        
+        deleteTestFile()
+    }
+    
     func areEqual(loc1: SavedLocation, loc2: SavedLocation) -> Bool {
         return (loc1.name == loc2.name) && (loc1.latitude == loc2.latitude) && (loc1.longitude == loc2.longitude)
     }

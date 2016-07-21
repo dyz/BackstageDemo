@@ -35,19 +35,6 @@ class LocationEntryViewController : UIViewController, UITextFieldDelegate {
         saveButton.enabled = false
     }
     
-    @IBAction func lookupPressed(sender: AnyObject) {
-        if let locationString = stringLocationTextField.text {
-            LocationRetriever.sharedInstance.getCoordinatesFromAddressString(locationString, completion: { (loc) in
-                if loc == nil {
-                    print("invalid")
-                } else {
-                    self.latTextField.text = "\(loc!.lat)"
-                    self.longTextField.text = "\(loc!.long)"
-                }
-            })
-        }
-    }
-    
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return false
@@ -83,6 +70,50 @@ class LocationEntryViewController : UIViewController, UITextFieldDelegate {
     
     func updateSaveButtonState() {
         saveButton.enabled = isShowingValidLocation()
+    }
+    
+    @IBAction func saveButtonPressed(sender: AnyObject) {
+        showSaveWithNameAlert()
+    }
+    
+    func saveCurrentLocationWithName(name: String) {
+        if let lat = Double(self.latTextField.text ?? ""), let long = Double(self.longTextField.text ?? "") {
+            let loc = SavedLocation.init(name: name, latitude: lat, longitude: long)
+            SavedLocationStore.sharedInstance.saveLocationToDisk(loc)
+        }
+    }
+    
+    override func canBecomeFirstResponder() -> Bool {
+        return true
+    }
+    
+    func showSaveWithNameAlert() {
+        let alert = UIAlertController.init(title: "Save This Location", message: "Give a Name For This Location", preferredStyle: .Alert)
+        alert.addTextFieldWithConfigurationHandler { (textField) in
+            textField.placeholder = "Name"
+            textField.addTarget(self, action: #selector(LocationEntryViewController.alertTextFieldDidChange(_:)), forControlEvents: .EditingChanged)
+            
+        }
+        
+        let saveAction = UIAlertAction.init(title: "Save", style: .Default) { (alertAction) in
+            let name = alert.textFields?.first?.text ?? ""
+            self.saveCurrentLocationWithName(name)
+            self.dismissViewControllerAnimated(true, completion: nil)
+        }
+        saveAction.enabled = false
+        let cancelAction = UIAlertAction.init(title: "Cancel", style: .Cancel, handler: nil)
+        alert.addAction(saveAction)
+        alert.addAction(cancelAction)
+        
+        self.presentViewController(alert, animated: true, completion: nil)
+    }
+    
+    func alertTextFieldDidChange(sender: UITextField) {
+        if let alertController = self.presentedViewController as? UIAlertController {
+            let name = alertController.textFields?.first?.text ?? ""
+            let saveAction = alertController.actions.first
+            saveAction?.enabled = name.characters.count > 1
+        }
     }
     
     func isShowingValidLocation() -> Bool {
